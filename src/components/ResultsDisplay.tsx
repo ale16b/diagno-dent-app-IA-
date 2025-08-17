@@ -1,7 +1,25 @@
 import React from 'react';
 
+interface DiagnosisResult {
+  message: string;
+  diagnosis: string;
+  recommendation: string;
+  references?: string;
+}
+
+interface MedicalAlert {
+  level: 'warning' | 'danger';
+  message: string;
+  reference: string;
+}
+
+interface FullReport {
+  dentalDiagnosis: DiagnosisResult;
+  medicalAlerts: MedicalAlert[];
+}
+
 interface ResultsDisplayProps {
-  diagnosis: any;
+  diagnosis: FullReport | null;
 }
 
 const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ diagnosis }) => {
@@ -9,40 +27,35 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ diagnosis }) => {
     return null;
   }
 
-  return (
-    <div>
-      <h2>Resultados del Diagnóstico</h2>
-      <p>{diagnosis.message}</p>
-      {diagnosis.diagnosis && (
-        <p><strong>Diagnóstico Sugerido:</strong> {diagnosis.diagnosis}</p>
-      )}
-      {diagnosis.recommendation && (
-        <p><strong>Recomendación:</strong> {diagnosis.recommendation}</p>
-      )}
-      {diagnosis.observations && (
-        <p><strong>Observaciones:</strong> {diagnosis.observations}</p>
-      )}
-      {diagnosis.confirmed !== undefined && (
-        <p><strong>Observaciones Confirmadas:</strong> {diagnosis.confirmed ? 'Sí' : 'No'}</p>
-      )}
-      {diagnosis.symptom && (
-        <p><strong>Síntoma Principal:</strong> {diagnosis.symptom}</p>
-      )}
+  const { dentalDiagnosis, medicalAlerts } = diagnosis;
 
-      {diagnosis.lesionDetails && (
-        <div style={{ border: '1px solid var(--fg-0)', padding: '15px', borderRadius: '8px', marginTop: '15px', textAlign: 'left' }}>
-          <h3>Detalles de la Lesión:</h3>
-          {diagnosis.lesionDetails.lesionElemental && <p><strong>Lesión Elemental:</strong> {diagnosis.lesionDetails.lesionElemental}</p>}
-          {diagnosis.lesionDetails.localizacion && <p><strong>Localización:</strong> {diagnosis.lesionDetails.localizacion}</p>}
-          {diagnosis.lesionDetails.numeroLesiones && <p><strong>Número de Lesiones:</strong> {diagnosis.lesionDetails.numeroLesiones}</p>}
-          {diagnosis.lesionDetails.tamano && <p><strong>Tamaño:</strong> {diagnosis.lesionDetails.tamano}</p>}
-          {diagnosis.lesionDetails.color && <p><strong>Color:</strong> {diagnosis.lesionDetails.color}</p>}
-          {diagnosis.lesionDetails.consistencia && <p><strong>Consistencia:</strong> {diagnosis.lesionDetails.consistencia}</p>}
-          {diagnosis.lesionDetails.superficie && <p><strong>Superficie:</strong> {diagnosis.lesionDetails.superficie}</p>}
-          {diagnosis.lesionDetails.bordes && <p><strong>Bordes:</strong> {diagnosis.lesionDetails.bordes}</p>}
-          {diagnosis.lesionDetails.base && <p><strong>Base:</strong> {diagnosis.lesionDetails.base}</p>}
+  return (
+    <div className="results-card">
+      {/* Sección de Alertas Médicas */}
+      {medicalAlerts && medicalAlerts.length > 0 && (
+        <div className="medical-alerts-section">
+          <h4>⚠️ Alertas Médicas</h4>
+          {medicalAlerts.map((alert, index) => (
+            <div key={index} className={`alert alert-${alert.level}`}>
+              <p>{alert.message}</p>
+              <p style={{fontSize: '0.8em', color: 'var(--fg-2)', marginBottom: 0}}><strong>Fuente:</strong> {alert.reference}</p>
+            </div>
+          ))}
         </div>
       )}
+
+      {/* Sección de Diagnóstico Dental */}
+      <div className="dental-diagnosis-section">
+        <h4>Diagnóstico Dental</h4>
+        <h5>{dentalDiagnosis.diagnosis || 'Resultado'}</h5>
+        <p>{dentalDiagnosis.message}</p>
+        <p><strong>Recomendación:</strong> {dentalDiagnosis.recommendation}</p>
+        {dentalDiagnosis.references && (
+          <div style={{marginTop: '1rem', paddingTop: '0.5rem', borderTop: '1px solid var(--fg-2)'}}>
+            <p style={{fontSize: '0.8em', color: 'var(--fg-2)'}}><strong>Fuente:</strong> {dentalDiagnosis.references}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

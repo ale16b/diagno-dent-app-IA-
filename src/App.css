@@ -1,89 +1,48 @@
-* {
-  box-sizing: border-box;
-}
-
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
-
-:root {
-  /* Gruvbox Material Dark (Muted) */
-  --bg-0: #282828;
-  --red: #CC241D;
-  --green: #98971A;
-  --yellow: #D79921;
-  --blue: #458588;
-  --purple: #B16286;
-  --aqua: #689D6A;
-  --orange: #D65D0E;
-  --fg-0: #A89984;
-}
-
-body {
-  font-family: 'JetBrains Mono', monospace;
-  background-color: var(--bg-0);
-  color: var(--fg-0);
-  margin: 0;
-  padding: 0;
-}
-
+/* General App container */
 .App {
   text-align: center;
-  padding: 20px;
-  max-width: 800px;
-  margin: 20px auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background-color: var(--bg-0);
+  max-width: 750px;
+  margin: 2rem auto;
+  padding: 1rem;
 }
 
 .App-header {
-  background-color: var(--bg-0);
-  padding: 20px;
-  color: var(--fg-0);
-  border-radius: 8px;
-  margin-bottom: 20px;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
   border-bottom: 2px solid var(--blue);
 }
 
 .App-header h1 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 2.2em;
   color: var(--yellow);
 }
 
 .App-header p {
-  margin-top: 5px;
-  font-size: 1.2em;
+  margin-top: 0.5rem;
+  font-size: 1.1em;
   color: var(--aqua);
 }
 
 main {
-  background-color: var(--bg-0);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--fg-0);
-  display: flex; /* Added for layout */
-  flex-direction: column; /* Added for layout */
-  gap: 20px; /* Added for consistent spacing between sections */
+  text-align: left;
 }
 
-/* Form Styling */
-/* Adjusted to apply to direct children of main for consistent spacing */
-main > div {
-  margin-bottom: 0; /* Reset default margin */
+/* --- Spacing & Layout Rules --- */
+main > div > form > div {
+  margin-bottom: 1.75rem;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.5rem; /* Space between label and its input */
   font-weight: bold;
   color: var(--fg-0);
-  text-align: left; /* Align labels to left */
 }
 
 textarea,
 select {
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   border: 1px solid var(--fg-0);
   border-radius: 4px;
@@ -91,35 +50,32 @@ select {
   color: var(--fg-0);
   font-family: 'JetBrains Mono', monospace;
   resize: vertical;
-  outline: none; /* Remove default outline */
-  transition: all 0.3s ease; /* Smooth transitions */
+  outline: none;
+  transition: all 0.3s ease;
 }
 
 textarea:focus,
 select:focus {
-  border-color: var(--blue); /* Highlight border on focus */
-  box-shadow: 0 0 0 2px rgba(69, 133, 136, 0.5); /* Subtle glow on focus */
+  border-color: var(--blue);
+  box-shadow: 0 0 0 2px rgba(69, 133, 136, 0.5);
 }
 
 input[type="checkbox"] {
   margin-right: 8px;
-  outline: none; /* Remove default outline */
-  transition: all 0.3s ease; /* Smooth transitions */
 }
 
-input[type="checkbox"]:focus {
-  box-shadow: 0 0 0 2px rgba(69, 133, 136, 0.5); /* Subtle glow on focus */
-}
-
+/* Main action button */
 button {
   background-color: var(--blue);
   color: var(--bg-0);
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.1em;
+  font-weight: bold;
   transition: background-color 0.3s ease;
+  width: 100%; /* Make button full width */
 }
 
 button:hover {
@@ -131,47 +87,17 @@ h2 {
   margin-top: 0;
 }
 
-/* Specific styling for the lesion details section */
-.lesion-details-section {
-  border: 1px solid var(--fg-0);
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 15px;
-  background-color: rgba(0, 0, 0, 0.1); /* Slightly darker background for contrast */
+.results-card {
+    border: 1px solid var(--blue);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 8px;
 }
 
-.lesion-details-section h3 {
-  color: var(--yellow);
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-
-.lesion-details-section > div {
-  margin-bottom: 10px; /* Smaller margin for elements within this section */
-}
-
-.lesion-details-section label {
-  margin-bottom: 3px;
-}
-
-.lesion-details-section select {
-  width: 100%; /* Full width within its container */
-}
-
-/* Styling for the examples section */
-.examples-section {
-  color: var(--fg-0);
-  font-size: 0.85em;
-  margin-top: -10px;
-  margin-bottom: 5px;
-  text-align: left;
-  border: 1px solid var(--fg-0);
-  padding: 10px;
-  border-radius: 5px;
-  background-color: rgba(0,0,0,0.1);
-}
-
-.examples-section ul {
-  margin: 0;
-  padding-left: 20px;
+.results-card h4 {
+    color: var(--green);
+    margin-top: 0;
+    border-bottom: 1px solid var(--fg-2);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
